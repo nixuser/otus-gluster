@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+disk_size = 100 # in megabytes
+disk_dir = '~/vmdisks' # directory where additional disk files are stored
+disk_controller = 'IDE' # MacOS. This setting is OS dependent. Details https://github.com/hashicorp/vagrant/issues/8105
+
 Vagrant.configure("2") do |config|
   # Base VM OS configuration.
   config.vm.box = "centos/7"
@@ -17,12 +21,19 @@ Vagrant.configure("2") do |config|
     { :name => "gluster1", :ip => "192.168.7.150" },
     { :name => "gluster2", :ip => "192.168.7.151" }
   ]
-
   # Provision each of the VMs.
   boxes.each do |opts|
     config.vm.define opts[:name] do |config|
       config.vm.hostname = opts[:name]
       config.vm.network "private_network", ip: opts[:ip]
+
+      file_to_disk = File.join(disk_dir, config.vm.hostname + '.vdi')
+      config.vm.provider :virtualbox do |vm|
+        unless File.exist?(file_to_disk)
+          vm.customize ['createhd', '--filename', file_to_disk, '--size', disk_size]
+        end
+        vm.customize ['storageattach', :id, '--storagectl', 'IDE', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
+      end
 
       # Provision both VMs using Ansible after the last VM is booted.
       if opts[:name] == "gluster2"
