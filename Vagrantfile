@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 disk_size = 100 # in megabytes
-disk_dir = '~/vmdisks' # directory where additional disk files are stored
+disk_dir = '../vmdisks' # directory where additional disk files are stored
 disk_controller = 'IDE' # MacOS. This setting is OS dependent. Details https://github.com/hashicorp/vagrant/issues/8105
 
 Vagrant.configure("2") do |config|
