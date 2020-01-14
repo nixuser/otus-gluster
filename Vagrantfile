@@ -18,10 +18,66 @@ Vagrant.configure("2") do |config|
 
   # Define two VMs with static private IP addresses.
   boxes = [
-    { :name => "gluster1", :ip => "192.168.7.151" },
-    { :name => "gluster2", :ip => "192.168.7.152" },
-    { :name => "gluster3", :ip => "192.168.7.153" },
-    { :name => "gluster4", :ip => "192.168.7.154" },
+    { :name => "gluster1",
+      :ip => "192.168.7.151",
+      :disks => {
+		    :sata1 => {
+          :dfile => 'disk1',
+          :size => 250,
+          :port => 1
+        },
+        :sata2 => {
+          :dfile => 'disk2',
+          :size => 250, # Megabytes
+          :port => 2
+        }
+      }
+    },
+    { :name => "gluster2",
+      :ip => "192.168.7.152",
+      :disks => {
+		    :sata1 => {
+          :dfile => 'disk1',
+          :size => 250,
+          :port => 1
+        },
+        :sata2 => {
+          :dfile => 'disk2',
+          :size => 250, # Megabytes
+          :port => 2
+        }
+      }
+   },
+    { :name => "gluster3",
+      :ip => "192.168.7.153",
+      :disks => {
+		    :sata1 => {
+          :dfile => 'disk1',
+          :size => 250,
+          :port => 1
+        },
+        :sata2 => {
+          :dfile => 'disk2',
+          :size => 250, # Megabytes
+          :port => 2
+        }
+      }
+   },
+    { :name => "gluster4",
+      :ip => "192.168.7.154",
+      :disks => {
+		    :sata1 => {
+          :dfile => 'disk1',
+          :size => 250,
+          :port => 1
+        },
+        :sata2 => {
+          :dfile => 'disk2',
+          :size => 250, # Megabytes
+          :port => 2
+        }
+      }
+   }
   ]
   # Provision each of the VMs.
   boxes.each do |opts|
@@ -29,13 +85,31 @@ Vagrant.configure("2") do |config|
       config.vm.hostname = opts[:name]
       config.vm.network "private_network", ip: opts[:ip]
 
-      file_to_disk = File.join(disk_dir, config.vm.hostname + '.vdi')
+      # Disks and controllers configuration
+      needsController = false
       config.vm.provider :virtualbox do |vm|
-        unless File.exist?(file_to_disk)
-          vm.customize ['createhd', '--filename', file_to_disk, '--size', disk_size]
+        opts[:disks].each do |dname, disk_conf|
+          file_to_disk = File.join(disk_dir, config.vm.hostname + disk_conf[:dfile] + '.vdi')
+          unless File.exist?(file_to_disk)
+            vm.customize ['createhd', '--filename', file_to_disk,
+                                      '--variant', 'Fixed',
+                                      '--size', disk_conf[:size]]
+            needsController = true
+          end
         end
-        vm.customize ['storageattach', :id, '--storagectl', 'IDE', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
-      end
+
+        if needsController # add controller only if disk files was created
+          vm.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
+          opts[:disks].each do |dname, disk_conf|
+            file_to_disk = File.join(disk_dir, config.vm.hostname + disk_conf[:dfile] + '.vdi')
+            vm.customize ['storageattach', :id, '--storagectl', 'SATA',
+                                                '--port', disk_conf[:port],
+                                                '--device', 0,
+                                                '--type', 'hdd',
+                                                '--medium', file_to_disk]
+          end
+        end
+    end
 
       # Provision VMs using Ansible after the last VM is booted.
       if opts[:name] == boxes.last[:name] 
