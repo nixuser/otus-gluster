@@ -34,7 +34,7 @@
 ## Дополнительные настройки для управления кластером
   1. Добавление хостов кластера в файл /etc/hosts `ansible-playbook -i inventory  playbooks/hosts.yml`
   2. Установка и настройка Cluster Shell  
-    `ansible-playbook -i inventory  playbooks install_clush.yml`
+    `ansible-playbook -i inventory  playbooks/install_clush.yml`
   3. Проверка что hosts файл и Cluster Shell настроены и работают
     
     # Добавим ключ vagrant
