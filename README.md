@@ -2,7 +2,7 @@
 
 # GlusterFS Distributed Filesystem Configuration
 
-Создание файловой системы [GlusterFS](http://www.gluster.org/) на двух серверах
+Создание файловой системы [GlusterFS](http://www.gluster.org/) на виртуальных машинах
 
 ##  Создание виртуальной машины
 
