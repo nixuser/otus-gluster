@@ -9,6 +9,11 @@
       package:
         name: clustershell.noarch 
         state: present
+
+    - name: Install fio
+      package:
+        name: fio
+        state: present
         
     - name: Update ssh config
       blockinfile:

@@ -21,60 +21,120 @@ Vagrant.configure("2") do |config|
     { :name => "gluster1",
       :ip => "192.168.7.151",
       :disks => {
-		    :sata1 => {
+        :sata1 => {
           :dfile => 'disk1',
-          :size => 250,
+          :size => 150,
           :port => 1
         },
         :sata2 => {
           :dfile => 'disk2',
-          :size => 250, # Megabytes
+          :size => 150, # Megabytes
           :port => 2
+        },
+        :sata3 => {
+          :dfile => 'disk3',
+          :size => 150, # Megabytes
+          :port => 3
+        },
+        :sata4 => {
+          :dfile => 'disk4',
+          :size => 150, # Megabytes
+          :port => 4
+        },
+        :sata5 => {
+          :dfile => 'disk5',
+          :size => 150, # Megabytes
+          :port => 5
         }
       }
     },
     { :name => "gluster2",
       :ip => "192.168.7.152",
       :disks => {
-		    :sata1 => {
+        :sata1 => {
           :dfile => 'disk1',
-          :size => 250,
+          :size => 150,
           :port => 1
         },
         :sata2 => {
           :dfile => 'disk2',
-          :size => 250, # Megabytes
+          :size => 150, # Megabytes
           :port => 2
+        },
+        :sata3 => {
+          :dfile => 'disk3',
+          :size => 150, # Megabytes
+          :port => 3
+        },
+        :sata4 => {
+          :dfile => 'disk4',
+          :size => 150, # Megabytes
+          :port => 4
+        },
+        :sata5 => {
+          :dfile => 'disk5',
+          :size => 150, # Megabytes
+          :port => 5
         }
       }
    },
     { :name => "gluster3",
       :ip => "192.168.7.153",
       :disks => {
-		    :sata1 => {
+        :sata1 => {
           :dfile => 'disk1',
-          :size => 250,
+          :size => 150,
           :port => 1
         },
         :sata2 => {
           :dfile => 'disk2',
-          :size => 250, # Megabytes
+          :size => 150, # Megabytes
           :port => 2
+        },
+        :sata3 => {
+          :dfile => 'disk3',
+          :size => 150, # Megabytes
+          :port => 3
+        },
+        :sata4 => {
+          :dfile => 'disk4',
+          :size => 150, # Megabytes
+          :port => 4
+        },
+        :sata5 => {
+          :dfile => 'disk5',
+          :size => 150, # Megabytes
+          :port => 5
         }
       }
    },
     { :name => "gluster4",
       :ip => "192.168.7.154",
       :disks => {
-		    :sata1 => {
+        :sata1 => {
           :dfile => 'disk1',
-          :size => 250,
+          :size => 150,
           :port => 1
         },
         :sata2 => {
           :dfile => 'disk2',
-          :size => 250, # Megabytes
+          :size => 150, # Megabytes
           :port => 2
+        },
+        :sata3 => {
+          :dfile => 'disk3',
+          :size => 150, # Megabytes
+          :port => 3
+        },
+        :sata4 => {
+          :dfile => 'disk4',
+          :size => 150, # Megabytes
+          :port => 4
+        },
+        :sata5 => {
+          :dfile => 'disk5',
+          :size => 150, # Megabytes
+          :port => 5
         }
       }
    }
