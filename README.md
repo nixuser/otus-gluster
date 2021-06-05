@@ -38,11 +38,12 @@
   3. Проверка что hosts файл и Cluster Shell настроены и работают
     
     # Добавим ключ vagrant
+    $ ssh-agent
     $ ssh-add ~/.vagrant.d/insecure_private_key 
     # Зайдем на хост с пробросом ключа
     $ vagrant ssh gluster1 -- -A 
     # Запустим команду на выполнение на всех узлах
-    $ clush --hostfile=nodes uname
+    $ clush  --hostfile=/home/vagrant/nodes uname 
 
 ## Источники:
 Проект использует роли из [Jeff Geerling](https://www.jeffgeerling.com/) as an example for [Ansible for DevOps](https://www.ansiblefordevops.com/).

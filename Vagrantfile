@@ -8,7 +8,7 @@ disk_controller = 'IDE' # MacOS. This setting is OS dependent. Details https://g
 Vagrant.configure("2") do |config|
   # Base VM OS configuration.
   config.vm.box = "centos/7"
-  config.vm.synced_folder '.', '/vagrant', disabled: true
+  config.vm.synced_folder '.', '/vagrant', disabled: false
   config.ssh.insert_key = false
 
   config.vm.provider :virtualbox do |v|
@@ -171,6 +171,7 @@ Vagrant.configure("2") do |config|
         end
     end
 
+      # Comment strings below and install Ansible to the host gluster1
       # Provision VMs using Ansible after the last VM is booted.
       if opts[:name] == boxes.last[:name] 
         config.vm.provision "ansible" do |ansible|
@@ -179,6 +180,7 @@ Vagrant.configure("2") do |config|
           ansible.limit = "all"
         end
       end
+      # Block end
     end
   end
 
