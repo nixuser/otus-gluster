@@ -41,10 +41,9 @@ format_and_mount_bricks(){
 
 
 main(){
-	install_gluster
-	create_cluster
-	show_cluster_state
 	format_and_mount_bricks
+	install_gluster
+	# create_cluster - this step should start only on one server
 }
 
 main
