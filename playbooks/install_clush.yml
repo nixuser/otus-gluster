@@ -1,13 +1,16 @@
 ---
 - hosts: gluster
   become: yes
-  roles:
-    - geerlingguy.repo-epel
 
   tasks:
+    - name: Install epel
+      package:
+        name: epel-release.noarch
+        state: present
+
     - name: Install cluster shell
       package:
-        name: clustershell.noarch 
+        name: python3-clustershell
         state: present
 
     - name: Install fio

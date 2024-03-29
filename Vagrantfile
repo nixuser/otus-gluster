@@ -5,12 +5,12 @@
 
 Vagrant.configure("2") do |config|
   # Base VM OS configuration.
-  config.vm.box = "almalinux/9"
+  config.vm.box = "alma/9.3"
   config.vm.synced_folder '.', '/vagrant', disabled: false
   config.ssh.insert_key = false
 
   config.vm.provider :virtualbox do |v|
-    v.memory = 512
+    v.memory = 1024
     v.cpus = 1
   end
 
